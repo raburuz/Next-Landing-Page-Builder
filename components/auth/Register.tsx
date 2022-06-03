@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import NextLink from 'next/link';
 import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form';
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +10,8 @@ import Divider from '@mui/material/Divider';
 import { FormGroup, Link } from '@mui/material';
 import { Input } from '../form/input/Input.component';
 import { Checkbox } from '../form/Checkbox/Checkbox.component';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import style from './Auth.module.css'
 
 interface InputComponent {
   name: string;
@@ -74,11 +75,14 @@ export const Register = () => {
 
   return (
     <>
+      <header className={style.headerMenu}>
+        <div className={style.logoBack}><a href='/'><ArrowBackIosIcon className={style.logBack}/></a></div>
+      </header>
       <Typography
         variant="h4"
         component="div"
         gutterBottom
-        sx={{ fontWeight: 800 }}
+        sx={{ fontWeight: 800,color:'white' }}
       >
         Sign Up
       </Typography>
@@ -119,7 +123,7 @@ export const Register = () => {
                 rules={{ required: true }}
                 errors={errors}
               />
-              <Button variant="outlined" size="large" fullWidth type="submit">
+              <Button variant="outlined" size="large" fullWidth type="submit" sx={{background: '#3f0466', color:'white'}}>
                 Sign Up
               </Button>
             </CardActions>
@@ -130,7 +134,7 @@ export const Register = () => {
       <Typography component="div" sx={{ m: 3.5, fontSize: '10px' }}>
         Do you have account?{' '}
         <NextLink href="/auth/login">
-          <Link>Log In</Link>
+          <Link href='/auth/login'>Log In</Link>
         </NextLink>
       </Typography>
     </>
