@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { FormGroup } from '@mui/material';
 import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '../form/input/Input.component';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import style from './Auth.module.css'
 
 interface InputComponent {
   name: string;
@@ -57,15 +59,18 @@ export const Login = () => {
 
   return (
     <>
+      <header className={style.headerMenu}>
+        <div className={style.logoBack}><a href='/'><ArrowBackIosIcon className={style.logBack}/></a></div>
+      </header>
       <Typography
         variant="h4"
         component="div"
         gutterBottom
-        sx={{ fontWeight: 800 }}
+        sx={{ fontWeight: 800, color:'white' }}
       >
         Login In
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
         <FormGroup>
           <Card sx={{ width: '100%', maxWidth: 300 }}>
             <CardContent
@@ -91,7 +96,7 @@ export const Login = () => {
                 m: 1.5,
               }}
             >
-              <Button type="submit" variant="contained" size="large" fullWidth>
+              <Button type="submit" variant="contained" size="large" fullWidth sx={{background: '#3f0466', color:'white'}}>
                 Login In
               </Button>
             </CardActions>
@@ -112,7 +117,7 @@ export const Login = () => {
                 Don't have an account yet? Sign up for free!
               </Typography>
               <Link href="/auth/register">
-                <Button variant="outlined" size="large" fullWidth>
+                <Button variant="outlined" size="large" fullWidth sx={{background: '#3f0466', color:'white'}}>
                   Sign Up
                 </Button>
               </Link>
