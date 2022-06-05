@@ -30,7 +30,7 @@
 }
 
 .headerMenu{
-    margin-left: 800px;
+    /* margin-left: 800px; */
     width: 90%;
     margin-top: 50px;
     height: 100px;
@@ -39,17 +39,18 @@
     justify-content: end;    
 }
 
+
+.logBackPolity{
+    width: 50px;
+    height: 50px;
+}
+
 .logoBack{
     width: 90%;
     display: flex;
     justify-content: end;
 }
 
-.logBack{
-    width: 50px;
-    height: 50px;
-    color: white;
-}
 
 .css-knkb7h-MuiContainer-root {
     margin: 0;

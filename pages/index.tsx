@@ -17,18 +17,15 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Main metaTags={metaTags}>
-      <>          
+    <>
+    <Main metaTags={metaTags}>        
     <div className={styles.container}>
-      <head>
-      <link rel="shortcut icon" href="./images/favicon.ico" />
-      </head>
       <div className={styles.cont}>
         <div className={styles.logo}><Image className={styles.log} src={logo}/></div>		
         <div className={styles.textInfo}>A place where you can create your page quickly and easily. Let your imagination fly.</div>
-        <div className={styles.menu}><Link href='menu'><a href='/menu'>Choose your template</a></Link></div>
-        <div className={styles.login}><Link href='/auth/login'><a>Login</a></Link></div>
-        <div className={styles.register}>You are not <Link href='/auth/register'><a>registered</a></Link> yet?</div>
+        <div className={styles.menu}><Link href='/menu' sx={{color:'#FFFFFF'}}>Choose your template</Link></div>
+        <div className={styles.login}><Link href='/auth/login' sx={{color:'#FFFFFF'}}>Login</Link></div>
+        <div className={styles.register}>You are not <Link href='/auth/register' sx={{color:'#FFFFFF'}}>registered</Link> yet?</div>
       </div>
       <div className={styles.information}>
         <div className={styles.info}>
@@ -39,10 +36,16 @@ const Home: NextPage = () => {
           <div className={styles.templates}>
             <div id={styles.contenido}>
               <div id={styles.caja}>
-                {/* <div className={styles.carrusel}>
-                  <Image className={styles.imagenes} src={imagen1} />
+                 <div className={styles.carrusel}>
+                  <Image className={styles.imagenes} src={imagen1}/>
                 </div>
-                <div className={styles.carrusel}>   
+                <div className={styles.carrusel}>
+                  <Image className={styles.imagenes} src={imagen1}/>
+                </div>
+                <div className={styles.carrusel}>
+                  <Image className={styles.imagenes} src={imagen1}/>
+                </div>
+                {/*<div className={styles.carrusel}>   
                   <Image className={styles.imagenes} src={imagen2} />
                 </div>
                 <div className={styles.carrusel}>   
@@ -54,8 +57,8 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-      </>
     </Main>
+  </>
   );
 };
 

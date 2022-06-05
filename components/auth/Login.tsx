@@ -59,20 +59,20 @@ export const Login = () => {
 
   return (
     <>
-      <header className={style.headerMenu}>
-        <div className={style.logoBack}><a href='/'><ArrowBackIosIcon className={style.logBack}/></a></div>
-      </header>
+      <div className={style.logoBack}>
+          <div className={style.logoBackPolity}><a href='/'><ArrowBackIosIcon className={style.logBackPolity}/></a></div>
+      </div>
       <Typography
         variant="h4"
         component="div"
         gutterBottom
-        sx={{ fontWeight: 800, color:'white' }}
+        sx={{ fontWeight: 800, color:'white', marginBottom:'100px' }}
       >
         Login In
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
         <FormGroup>
-          <Card sx={{ width: '100%', maxWidth: 300 }}>
+          <Card sx={{ width: '100%', maxWidth: 300, background:'transparent',marginTop:'30px' }}>
             <CardContent
               sx={{
                 display: 'flex',
@@ -117,7 +117,7 @@ export const Login = () => {
                 Don't have an account yet? Sign up for free!
               </Typography>
               <Link href="/auth/register">
-                <Button variant="outlined" size="large" fullWidth sx={{background: '#3f0466', color:'white'}}>
+                <Button variant="outlined" size="large" fullWidth sx={{background: '#3f0466', color:'white',border:'0'}}>
                   Sign Up
                 </Button>
               </Link>

@@ -14,7 +14,6 @@ const LoginScreen = () => {
           spacing={2}
           sx={{
             display: 'flex',
-            height: '90vh',
             alignContent: 'center',
           }}
         >

@@ -269,8 +269,9 @@
   }
 
   .imagenes{
-      height: 500px;
-      width: 100%;
+      height: 600px !important;
+      width: 600px;
+      border: 1px solid red;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
   }
@@ -440,4 +441,3 @@
   .css-2ll248-MuiGrid-root{
     height: auto !important;
 }
-

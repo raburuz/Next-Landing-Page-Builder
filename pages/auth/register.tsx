@@ -16,7 +16,7 @@ const RegisterScreen = () => {
           spacing={2}
           sx={{
             display: 'flex',
-            height: '90vh',
+            height: '80vh',
             alignContent: 'center',
           }}
         >
