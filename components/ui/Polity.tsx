@@ -6,9 +6,12 @@ import style from './Polity.module.css'
 export const Polity = () => {
     return (
         <div className={style.contPolity}>
+            <div className={style.logoBack}>
+                <div className={style.logoBackPolity}><a href='/'><ArrowBackIosIcon className={style.logBackPolity}/></a></div>
+            </div>
+           
         <header className={style.headerPolity}>
             <h1 className={style.titlePolity}>Privacy Policy</h1>
-            <div className={style.logoBackPolity}><a href='/'><ArrowBackIosIcon className={style.logBackPolity}/></a></div>
         </header>
         <div className={style.infoPolity}>
             <h1 className={style.h1}>About us</h1>

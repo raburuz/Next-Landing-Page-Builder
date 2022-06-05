@@ -21,8 +21,7 @@
 }
 
 .titlePolity{
-    width: 90%;
-    padding: 50px;
+    width: 90%; 
     color: rgb(253, 254, 255);
     text-align: center;
     text-transform: uppercase;
@@ -33,6 +32,12 @@
 .logBackPolity{
     width: 50px;
     height: 50px;
+}
+
+.logoBack{
+    width: 90%;
+    display: flex;
+    justify-content: end;
 }
 
 /*------------------Info-----------------------*/

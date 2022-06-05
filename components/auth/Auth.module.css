@@ -30,7 +30,8 @@
 }
 
 .headerMenu{
-    margin-left: 1100px;
+    margin-left: 800px;
+    width: 90%;
     margin-top: 50px;
     height: 100px;
     display: flex;
@@ -39,7 +40,9 @@
 }
 
 .logoBack{
-    float: right;
+    width: 90%;
+    display: flex;
+    justify-content: end;
 }
 
 .logBack{
@@ -60,4 +63,16 @@
 
 .form{
     margin-bottom: 150px;
+}
+
+.css-2ll248-MuiGrid-root{
+    height: 0 !important;
+}
+
+.css-2ll248-MuiGrid-root>.MuiGrid-item{
+    padding: 0;
+}
+
+.css-2apqvi-MuiPaper-root-MuiCard-root{
+    background-color: red !important;
 }

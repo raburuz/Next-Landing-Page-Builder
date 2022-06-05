@@ -125,9 +125,9 @@ export const Login = () => {
           </Card>
         </FormGroup>
       </form>
-      <Typography component="div" sx={{ m: 3.5, fontSize: '10px' }}>
+      {/* <Typography component="div" sx={{ m: 3.5, fontSize: '10px' }}>
         Forgot your password?
-      </Typography>
+      </Typography> */}
     </>
   );
 };

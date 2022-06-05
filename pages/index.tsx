@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       <div className={styles.cont}>
         <div className={styles.logo}><Image className={styles.log} src={logo}/></div>		
         <div className={styles.textInfo}>A place where you can create your page quickly and easily. Let your imagination fly.</div>
-        <div className={styles.menu}><a href='/menu'>Choose your template</a></div>
+        <div className={styles.menu}><Link href='menu'><a href='/menu'>Choose your template</a></Link></div>
         <div className={styles.login}><Link href='/auth/login'><a>Login</a></Link></div>
         <div className={styles.register}>You are not <Link href='/auth/register'><a>registered</a></Link> yet?</div>
       </div>
