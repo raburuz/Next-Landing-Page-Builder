@@ -89,7 +89,7 @@ export const Login = () => {
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup>
-          <Card sx={{ width: '100%', maxWidth: 300 }}>
+          <Card sx={{ width: '100%', maxWidth: 300, background:'transparent' }}>
             <CardContent
               sx={{
                 display: 'flex',
@@ -119,6 +119,7 @@ export const Login = () => {
                 size="large"
                 fullWidth
                 disabled={blockButton}
+                sx={{background: '#3f0466', color:'white'}}
               >
                 Login In
               </Button>
@@ -145,6 +146,7 @@ export const Login = () => {
                   size="large"
                   fullWidth
                   disabled={blockButton}
+                  sx={{background: '#3f0466', color:'white',border:'0'}}
                 >
                   Sign Up
                 </Button>
