@@ -3,14 +3,14 @@ import { LoginInterface } from '../interfaces';
 import { api } from './api';
 import Cookies from 'js-cookie';
 
-const userApi = axios.create({
+const userApi = axios.create({ //registrar base
   baseURL: `${api.baseUrl}${api.user}`,
 });
 
 const tokenApi = axios.create({
   baseURL: `${api.baseUrl}${api.token}`,
 });
-
+//API login
 export const loginApi = async (userData: LoginInterface) => {
   console.log(userData);
   try {
