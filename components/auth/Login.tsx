@@ -23,6 +23,9 @@ interface InputComponent {
   rules?: RegisterOptions;
 }
 
+
+
+
 const inputs: InputComponent[] = [
   {
     name: 'username',

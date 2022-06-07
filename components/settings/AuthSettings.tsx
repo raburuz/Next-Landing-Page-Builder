@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { AuthContext } from '../../context';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -42,7 +43,9 @@ interface InputComponent {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+  const { userData, logout } = useContext(AuthContext);
 
+  console.log(userData);
   return (
     <div
       role="tabpanel"
@@ -67,7 +70,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function VerticalTabs() {
+ export function AuthSettings() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -118,8 +121,4 @@ export default function VerticalTabs() {
     </Box>
   );
 }
-export const AuthSettings = () => {
-  return (
-    <div>AuthSettings</div>
-  )
-}
+

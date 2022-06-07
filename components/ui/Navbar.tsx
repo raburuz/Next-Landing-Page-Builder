@@ -87,7 +87,7 @@ export const Navbar = () => {
                 label="Settings"
                 value="settings"
                 icon={<SettingsApplicationsTwoToneIcon />}
-                onClick={() => onLink('/templates')}
+                onClick={() => onLink('/settings/settings')}
               />
             )}
           </BottomNavigation>
