@@ -26,10 +26,17 @@ export const loginApi = async (userData: SettingsUserInterface) => {
   }
 };
 
-export const updateApi = async (userData: SettingsUserInterface,id: any ) => {
-  console.log(userData);
+export const updateApi = async (userData: SettingsUserInterface,id: string ) => {
+const cookie = Cookies.get('x_token') ?? '';
+
+
   try {
-    const response = await userApi.put(`/${id}`, userData);
+    const response = await userApi.put(`/${id}`, userData,{
+      headers:{
+        'x_token': cookie
+      }
+    });
+  
     const { data } = response;
     return data;
   } catch (error: any) {

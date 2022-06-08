@@ -12,7 +12,6 @@ export interface LoginInterface {
 }
 
 export interface SettingsUserInterface {
-  id?:string;
   username?: string;
   email?: string;
   password?: string;

@@ -76,7 +76,7 @@ function TabPanel(props: TabPanelProps) {
     
    
     if(userData != null){
-      const value = await updateApi(data,userData.user?.id);
+      const value = await updateApi(data,userData.user?.id ?? '');
       console.log(value);
       setBlockButton(true);
 
@@ -93,6 +93,15 @@ function TabPanel(props: TabPanelProps) {
       label: 'Username',
       defaultValue:userData.user?.username,
       rules: { required: 'This field is required' },
+    },
+    {
+      name: 'password',
+      type: 'password',
+      label: 'Password',
+      rules: {
+        required: 'This field is required',
+      },
+     
     },
     {
       name: 'email',
