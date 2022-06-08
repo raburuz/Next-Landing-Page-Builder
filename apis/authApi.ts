@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginInterface } from '../interfaces';
+import { LoginInterface, SettingsUserInterface } from '../interfaces';
 import { api } from './api';
 import Cookies from 'js-cookie';
 
@@ -7,14 +7,29 @@ const userApi = axios.create({
   baseURL: `${api.baseUrl}${api.user}`,
 });
 
+
+
 const tokenApi = axios.create({
   baseURL: `${api.baseUrl}${api.token}`,
 });
 
-export const loginApi = async (userData: LoginInterface) => {
+export const loginApi = async (userData: SettingsUserInterface) => {
   console.log(userData);
   try {
     const response = await userApi.post(`/login`, userData);
+    const { data } = response;
+    return data;
+  } catch (error: any) {
+    return {
+      error: true,
+    };
+  }
+};
+
+export const updateApi = async (userData: SettingsUserInterface,id: any ) => {
+  console.log(userData);
+  try {
+    const response = await userApi.put(`/${id}`, userData);
     const { data } = response;
     return data;
   } catch (error: any) {

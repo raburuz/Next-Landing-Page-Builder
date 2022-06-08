@@ -1,6 +1,6 @@
  
 import React, { useContext, useState } from 'react';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { RegisterOptions, useForm,SubmitHandler } from 'react-hook-form';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -13,6 +13,7 @@ import { AuthContext } from '../../context';
 import style from './settings.module.css'
 import { SettingsUserInterface } from '../../interfaces';
 import { Input } from '../form/input/Input.component';
+import { updateApi } from '../../apis/authApi';
 
 
 
@@ -65,10 +66,26 @@ function TabPanel(props: TabPanelProps) {
 
 
  export function AuthSettings() {
-  const [value, setValue] = React.useState(0);
-
+  const [value, setValue] = React.useState({});
+  const [blockButton, setBlockButton] = useState(false);
   const { userData, logout } = useContext(AuthContext);
   console.log(userData);
+
+
+  const onSubmit: SubmitHandler<SettingsUserInterface> = async data => {
+    
+   
+    if(userData != null){
+      const value = await updateApi(data,userData.user?.id);
+      console.log(value);
+      setBlockButton(true);
+
+    }
+ 
+
+  }
+
+
   const inputs: InputComponent[] = [
     {
       name: 'username',
@@ -112,6 +129,7 @@ function TabPanel(props: TabPanelProps) {
                     <Avatar  sx={{ width: 250, height: 250 }} alt="Usuario" src="/static/images/avatar/1.jpg" />
                 </Stack>
                 </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
                 <div className= {style.inputPerfil}>
                         {inputs.map((input: InputComponent) => {
                           return (
@@ -120,8 +138,9 @@ function TabPanel(props: TabPanelProps) {
                             </div>
                           );
                       })}
-                    <Button variant="text" sx={{background:'purple',color:'white'}}>Update</Button>
+                    <Button  type="submit" disabled={blockButton} variant="text" sx={{background:'purple',color:'white'}}>Update</Button>
                 </div>
+                </form>
             </div>
         </div>  
     </Box>

@@ -11,6 +11,14 @@ export interface LoginInterface {
   password: string;
 }
 
+export interface SettingsUserInterface {
+  id?:string;
+  username?: string;
+  email?: string;
+  password?: string;
+}
+
+
 export interface Auth {
   user: User | null;
   isLoggedIn?: boolean;
