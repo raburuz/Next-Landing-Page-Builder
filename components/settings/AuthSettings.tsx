@@ -1,6 +1,6 @@
  
-import React, { useContext } from 'react';
-import { RegisterOptions } from 'react-hook-form';
+import React, { useContext, useState } from 'react';
+import { RegisterOptions, useForm } from 'react-hook-form';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { AuthContext } from '../../context';
 import style from './settings.module.css'
+import { SettingsUserInterface } from '../../interfaces';
+import { Input } from '../form/input/Input.component';
+
+
+
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,31 +33,18 @@ interface InputComponent {
     rules?: RegisterOptions;
   }
   
-  const inputs: InputComponent[] = [
-    {
-      name: 'username',
-      type: 'text',
-      label: 'Username',
-      rules: { required: 'This field is required' },
-    },
-    {
-      name: 'password',
-      type: 'password',
-      label: 'Password',
-      rules: {
-        required: 'This field is required',
-      },
-    },
-  ];
+
 
 
 
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-  const { userData, logout } = useContext(AuthContext);
 
-  console.log(userData);
+ 
+
+  const { userData, logout } = useContext(AuthContext);
+  
   return (
     <div
       role="tabpanel"
@@ -69,21 +62,42 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
+
 
  export function AuthSettings() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const { userData, logout } = useContext(AuthContext);
+  console.log(userData);
+  const inputs: InputComponent[] = [
+    {
+      name: 'username',
+      type: 'text',
+      label: 'Username',
+      defaultValue:userData.user?.username,
+      rules: { required: 'This field is required' },
+    },
+    {
+      name: 'email',
+      type: 'email',
+      label: 'Email',
+      defaultValue:userData.user?.email,
+      rules: {
+        required: 'This field is required',
+      },
+     
+    },
+  ];
 
-  const { userData } = useContext(AuthContext);
+  
+  const {
+    control,
+    handleSubmit,
+    resetField,
+    formState: { errors },
+  } = useForm<SettingsUserInterface>();
+
+  const username = inputs[0];
 
   return (
     <Box
@@ -99,9 +113,13 @@ function a11yProps(index: number) {
                 </Stack>
                 </div>
                 <div className= {style.inputPerfil}>
-                    <TextField value={userData.user?.username} id="margin-none" sx={{border:'1px solid #bdbdbd'}}/>
-                    <TextField value={userData.user?.email} id="margin-none" sx={{border:'1px solid #bdbdbd'}}/>
-                    <TextField value="*******" id="margin-none" sx={{border:'1px solid #bdbdbd'}}/>
+                        {inputs.map((input: InputComponent) => {
+                          return (
+                            <div key={input.name}>
+                              <Input data={{ ...input, control, errors }} />
+                            </div>
+                          );
+                      })}
                     <Button variant="text" sx={{background:'purple',color:'white'}}>Update</Button>
                 </div>
             </div>

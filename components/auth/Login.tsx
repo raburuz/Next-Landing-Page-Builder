@@ -14,7 +14,7 @@ import { FormGroup, Snackbar } from '@mui/material';
 
 import { Input } from '../form/input/Input.component';
 import { LoginInterface } from '../../interfaces';
-
+import { default as InputComponent } from '@mui/material/Input';
 interface InputComponent {
   name: string;
   label: string;
