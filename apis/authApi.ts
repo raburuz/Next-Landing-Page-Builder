@@ -29,17 +29,20 @@ export const loginApi = async (userData: SettingsUserInterface) => {
 export const updateApi = async (userData: SettingsUserInterface,id: string ) => {
 const cookie = Cookies.get('x_token') ?? '';
 
+console.log(userData);
 
   try {
     const response = await userApi.put(`/${id}`, userData,{
       headers:{
-        'x_token': cookie
+        'x_token': cookie,
+
       }
     });
   
     const { data } = response;
     return data;
   } catch (error: any) {
+    console.log(error)
     return {
       error: true,
     };

@@ -1,4 +1,3 @@
- 
 import React, { useContext, useState } from 'react';
 import { RegisterOptions, useForm,SubmitHandler } from 'react-hook-form';
 import Tabs from '@mui/material/Tabs';
@@ -18,14 +17,6 @@ import { updateApi } from '../../apis/authApi';
 
 
 
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-
 interface InputComponent {
     name: string;
     label: string;
@@ -34,35 +25,6 @@ interface InputComponent {
     rules?: RegisterOptions;
   }
   
-
-
-
-
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
- 
-
-  const { userData, logout } = useContext(AuthContext);
-  
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
 
 
  export function AuthSettings() {
@@ -74,11 +36,13 @@ function TabPanel(props: TabPanelProps) {
 
   const onSubmit: SubmitHandler<SettingsUserInterface> = async data => {
     
-   
+
+
+ 
     if(userData != null){
       const value = await updateApi(data,userData.user?.id ?? '');
       console.log(value);
-      setBlockButton(true);
+      // setBlockButton(true);
 
     }
  
@@ -92,7 +56,7 @@ function TabPanel(props: TabPanelProps) {
       type: 'text',
       label: 'Username',
       defaultValue:userData.user?.username,
-      rules: { required: 'This field is required' },
+     
     },
     {
       name: 'password',
@@ -104,13 +68,26 @@ function TabPanel(props: TabPanelProps) {
      
     },
     {
+      name: 'newPassword',
+      type: 'password',
+      label: 'New Password',
+    
+     
+    },
+    {
       name: 'email',
       type: 'email',
       label: 'Email',
       defaultValue:userData.user?.email,
-      rules: {
-        required: 'This field is required',
-      },
+
+     
+    },
+    {
+      name: 'role',
+      type: 'hidden',
+      label:'',
+      defaultValue: 'NORMAL_USER_ROLE',
+
      
     },
   ];
