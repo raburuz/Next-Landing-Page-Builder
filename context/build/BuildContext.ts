@@ -4,6 +4,7 @@ import { Components } from '../../interfaces/components';
 
 interface BuildProps extends Website {
   addComponent: (component: Components) => void;
+  changeColorPage: (backgroundColor: string) => void;
 }
 
 export const BuildContext = createContext({} as BuildProps);

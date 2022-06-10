@@ -1,19 +1,22 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useContext, useState } from 'react';
 import { Tab, Tabs, Box } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
-
+import ColorPicker from 'material-ui-color-picker'
 import { TabPanel } from '../ui';
 import { CustomMenuLayout } from '../../layouts';
-
+import { BuildContext } from '../../context';
 export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
-
+  const {addComponent,changeColorPage} = useContext(BuildContext);
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
+  const handleChangeColor = (newValue: string) => {
+    changeColorPage(newValue);
+  };
+  
   const a11yProps = (index: number) => {
     return {
       id: `simple-tab-${index}`,
@@ -24,7 +27,8 @@ export const CustomMenu = () => {
   return (
     <Box
       sx={{
-        width: 330,
+        width: 300,
+        height:500,
         position: 'fixed',
         left: 0,
         top: 0,
@@ -46,7 +50,13 @@ export const CustomMenu = () => {
       </Box>
       <TabPanel value={value} index={0}>
         <CustomMenuLayout>
-          <h1>Hola</h1>
+        <ColorPicker
+                name='color'
+                defaultValue='#000'
+                // value={this.state.color} - for controlled component
+                onChange={handleChangeColor}
+              
+          />
         </CustomMenuLayout>
       </TabPanel>
       <TabPanel value={value} index={1}>

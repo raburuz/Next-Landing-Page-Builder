@@ -20,7 +20,7 @@ export const Navbar = () => {
   const [value, setValue] = useState('recents');
   const router = useRouter();
   const { isLoggedIn } = userData;
-
+  
   const onAuthLink = () => {
     logout();
   };
