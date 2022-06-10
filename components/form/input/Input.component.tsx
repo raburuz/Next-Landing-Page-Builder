@@ -1,7 +1,8 @@
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
-import { FormControl, FormHelperText } from '@mui/material';
+import { Alert, FormControl, FormHelperText, Snackbar } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import { default as InputComponent } from '@mui/material/Input';
+import { useState } from 'react';
 
 interface Props {
   data: {
@@ -16,6 +17,8 @@ interface Props {
 }
 
 export const Input = ({ data }: Props) => {
+
+ 
   const {
     name,
     control,
@@ -43,10 +46,12 @@ export const Input = ({ data }: Props) => {
         defaultValue={defaultValue}
         rules={rules}
         render={({ field }) => (
-          <InputComponent id={name} type={type} {...field} />
+          <InputComponent id={name} type={type} {...field}  />
         )}
       />
+    
 
+    
       {errors && (
         <FormHelperText id="my-helper-text">
           {errors[name as keyof typeof errors]?.message}

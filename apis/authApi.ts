@@ -26,6 +26,19 @@ export const loginApi = async (userData: SettingsUserInterface) => {
   }
 };
 
+
+const  getError =  ( error:any ) => {
+  const {response} = error;
+  const {data} = response;
+  const {errors} = data;
+  const {errors:errores} = errors;
+  console.log(errores);
+  const {errors:arrayErrores} = errores;
+  console.log(arrayErrores);
+
+}
+
+
 export const updateApi = async (userData: SettingsUserInterface,id: string ) => {
 const cookie = Cookies.get('x_token') ?? '';
 
@@ -42,9 +55,9 @@ console.log(userData);
     const { data } = response;
     return data;
   } catch (error: any) {
-    console.log(error)
+    getError(error);
     return {
-      error: true,
+      error: error,
     };
   }
 };
@@ -63,7 +76,7 @@ export const registerApi = async (userData: LoginInterface) => {
       error: false,
     };
   } catch (error: any) {
-    console.log(error);
+   
     return {
       error: true,
     };

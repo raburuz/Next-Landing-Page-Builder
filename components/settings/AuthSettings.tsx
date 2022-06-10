@@ -13,7 +13,8 @@ import style from './settings.module.css'
 import { SettingsUserInterface } from '../../interfaces';
 import { Input } from '../form/input/Input.component';
 import { updateApi } from '../../apis/authApi';
-
+import { Alert, Snackbar } from '@mui/material';
+import { validate } from 'email-validator';
 
 
 
@@ -30,10 +31,19 @@ interface InputComponent {
  export function AuthSettings() {
   const [value, setValue] = React.useState({});
   const [blockButton, setBlockButton] = useState(false);
-  const { userData, logout } = useContext(AuthContext);
+  const { userData, logout,updateUser } = useContext(AuthContext);
   console.log(userData);
+  const [open, setOpen] = useState(false);
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
-
+    setOpen(false);
+  };
+  const isValidEmail = (email: string) => {
+    return validate(email) ? undefined : 'Email is invalid';
+  };
   const onSubmit: SubmitHandler<SettingsUserInterface> = async data => {
     
 
@@ -41,7 +51,25 @@ interface InputComponent {
  
     if(userData != null){
       const value = await updateApi(data,userData.user?.id ?? '');
-      console.log(value);
+
+    
+
+      if(value.hasOwnProperty('error')){
+        
+        
+     
+        setOpen(true);
+        
+        //
+        
+      }else{
+        
+
+        updateUser(value);
+
+
+      }
+    
       // setBlockButton(true);
 
     }
@@ -56,14 +84,17 @@ interface InputComponent {
       type: 'text',
       label: 'Username',
       defaultValue:userData.user?.username,
-     
+      rules: {
+        required: 'This field is required',
+    
+      },
     },
     {
       name: 'password',
       type: 'password',
       label: 'Password',
       rules: {
-        required: 'This field is required',
+        required: 'This field is required'
       },
      
     },
@@ -71,7 +102,6 @@ interface InputComponent {
       name: 'newPassword',
       type: 'password',
       label: 'New Password',
-    
      
     },
     {
@@ -79,7 +109,10 @@ interface InputComponent {
       type: 'email',
       label: 'Email',
       defaultValue:userData.user?.email,
-
+      rules: {
+        required: 'This field is required',
+        validate: isValidEmail,
+      },
      
     },
     {
@@ -127,6 +160,12 @@ interface InputComponent {
                     <Button  type="submit" disabled={blockButton} variant="text" sx={{background:'purple',color:'white'}}>Update</Button>
                 </div>
                 </form>
+                <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                      User or Password is invalid
+                  </Alert>
+                </Snackbar>
+               
             </div>
         </div>  
     </Box>
