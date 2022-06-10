@@ -34,11 +34,12 @@ interface InputComponent {
   const { userData, logout,updateUser } = useContext(AuthContext);
   console.log(userData);
   const [open, setOpen] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-
+    setOpenSuccess(false);
     setOpen(false);
   };
   const isValidEmail = (email: string) => {
@@ -66,7 +67,7 @@ interface InputComponent {
         
 
         updateUser(value);
-
+        setOpenSuccess(true);
 
       }
     
@@ -163,6 +164,11 @@ interface InputComponent {
                 <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
                   <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                       User or Password is invalid
+                  </Alert>
+                </Snackbar>
+                <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Your profile has been successfully edited
                   </Alert>
                 </Snackbar>
                
