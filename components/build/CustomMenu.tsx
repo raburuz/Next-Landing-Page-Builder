@@ -10,10 +10,12 @@ import { BuildContext } from '../../context';
 export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
   const {addComponent,changeColorPage} = useContext(BuildContext);
+    
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   const handleChangeColor = (newValue: string) => {
+    console.log(newValue);
     changeColorPage(newValue);
   };
   
