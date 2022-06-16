@@ -9,6 +9,8 @@ import { BuildContext } from '../../context/build/BuildContext';
 import { List } from '../Draggable/list/List.component';
 import { Button } from '../Draggable/button/Button.component';
 
+
+
 export const BuildMain = () => {
   const { components, page } = useContext(BuildContext);
 
@@ -25,8 +27,11 @@ export const BuildMain = () => {
         backgroundSize: '50px 50px',
       }}
     >
-      <BuildMenu />
-      <CustomMenu />
+        <BuildMenu />
+        <div style={{height:'50px'}}>
+           <CustomMenu />
+        </div>      
+     
       <Container
         maxWidth="md"
         sx={{
@@ -36,6 +41,7 @@ export const BuildMain = () => {
           height: '100%',
           minHeight: '1080px',
           color: '#000',
+          flexFlow:'wrap row'
         }}
       >
         <DragProvider>

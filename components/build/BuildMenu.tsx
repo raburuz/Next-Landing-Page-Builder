@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -12,6 +12,8 @@ import {
   ListComponent,
   ButtonComponent,
 } from '../../interfaces/components';
+
+import html2canvas from 'html2canvas';
 
 export const BuildMenu = () => {
   const { addComponent } = useContext(BuildContext);
@@ -49,6 +51,19 @@ export const BuildMenu = () => {
     addComponent(component);
   };
 
+   
+function click(){
+  const objetivo:any = document.querySelector('#dragbox');
+  import('html2canvas').then(html2canvas => {
+    html2canvas.default(objetivo).then(canvas => {
+      let enlace = document.createElement('a');
+      enlace.download = "Captura de página web - Parzibyte.me.png";
+      enlace.href = canvas.toDataURL();
+      enlace.click();
+    })
+  }).catch(e => {console.log(e) })
+}
+
   return (
     <>
       <Box sx={{ position: 'fixed', right: 20, top: 20 }}>
@@ -62,7 +77,7 @@ export const BuildMenu = () => {
           >
             Add
           </Button>
-          <Button>Save</Button>
+          <Button onClick={click}>Save</Button>
           <Button>Settings</Button>
         </ButtonGroup>
       </Box>
@@ -82,5 +97,9 @@ export const BuildMenu = () => {
         <MenuItem onClick={handleClose}>Imagen</MenuItem>
       </Menu>
     </>
+    
   );
 };
+
+
+
