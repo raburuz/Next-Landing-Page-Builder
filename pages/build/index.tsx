@@ -17,13 +17,14 @@ const BuildScreen = () => {
   return (
     <BuildProvider>
       <>
-        <Head>
+        {/* <Head>
           <Metas metaTags={metaTags} />
-        </Head>
+        </Head> */}
         <BuildMain />
       </>
     </BuildProvider>
   );
+  
 };
 
 export default BuildScreen;

@@ -32,12 +32,12 @@ export const CustomMenu = () => {
   return (
     <Box
       sx={{
-        width: 330,
+        width: 300,
         position: 'fixed',
         left: 0,
         top: 0,
         bgcolor: '#313131',
-        zIndex: 9999,
+        zIndex: 9999,        
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

@@ -2,6 +2,10 @@ import { StyleHTMLAttributes } from 'react';
 export type Components = TypoComponent | ListComponent | ButtonComponent;
 
 export interface Website {
+  id?: string;
+  subdomain: string;
+  uid?: string;
+  templateId: string;
   page: Page;
   components:
     | TypoComponent[]
@@ -13,7 +17,6 @@ export interface Website {
 export interface Page {
   backgroundColor: string;
   width: string;
-  sx?: StyleHTMLAttributes<HTMLStyleElement>;
 }
 
 export interface Component {
