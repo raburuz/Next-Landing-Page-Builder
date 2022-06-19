@@ -32,6 +32,7 @@ import Button from '@mui/material/Button';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import 'animate.css';
+import { ShadowPicker } from 'react-shadow-picker';
 
 const PrettoSlider = styled(Slider)({
   color: 'linear-gradient(30deg, rgba(121,82,119,0.975) 30%, #355192 85%)',
@@ -110,7 +111,7 @@ export const CustomMenu = () => {
   const [right, setRight] = useState(5);
   const [top, setTop] = useState(5);
   const [bottom, setBottom] = useState(5);
-
+  const [shadow, setShadow] = useState("0px 0px 10px 10px #44444455");
   const theme = useTheme();
 
   useEffect(() => {
@@ -184,7 +185,25 @@ export const CustomMenu = () => {
     changeColorPage(value);
   }
 
+  const handleChangeBoxShadow = (value:any) => {
 
+    setShadow(value);
+    console.log(value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+          setActiveComponent((state:any) => ({       
+                ...state,    
+                sx: {
+                  ...state.sx,
+                  boxShadow: value
+                }      
+          }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
   const handleChangeHeigth = (event:any ) => {
     setHeigth(event.target.value)
     if(active.type === ''){
@@ -537,14 +556,14 @@ export const CustomMenu = () => {
             onChange={handleChangeHeigth}
             max={400}
           />         
-        <Typography sx={{color:'white'}}>Size:</Typography>
+        <Typography sx={{color:'white'}}>Font Size:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
             aria-label="pretto slider"
             value={size}
             onChange={handleChangeSize}
           />
-        <Typography sx={{color:'white'}}>Border:</Typography>
+        <Typography sx={{color:'white'}}>Border Radius:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
             aria-label="pretto slider"
@@ -595,6 +614,15 @@ export const CustomMenu = () => {
           
       </TabPanel>
       <TabPanel value={value} index={1} >
+      <Typography sx={{color:'white'}}>Box shadow :</Typography>
+        <Box sx={{marginBottom:'50px'}}>
+              <ShadowPicker
+              value={shadow}
+              onChange={(value) => {
+                handleChangeBoxShadow(value);
+              }}
+            />
+       </Box>
       <Typography sx={{color:'white'}}>Background color :</Typography>
         <CustomMenuLayout>
             <HexColorPicker className={style.reactColorful} color={color} onChange={handleChangeColor} />
@@ -611,6 +639,8 @@ export const CustomMenu = () => {
         <CustomMenuLayout>
             <HexColorPicker className={style.reactColorful} color={backgroundBorder} onChange={handleBackgroundBorder} />
         </CustomMenuLayout>
+
+        
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Typography sx={{color:'white',margin:'20px 0px'}}>Change text:</Typography>
