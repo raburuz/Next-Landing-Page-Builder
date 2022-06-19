@@ -31,15 +31,14 @@ export const Typo: FC<Props> = ({ data }) => {
   useEffect(() => {
  
   }, [active])
+
+
+
   
   const handleActiveClick = ( data:any) => {
-    activeComponent(data);
-    if(select){
-      setSelect(false);  
-      
-    }
-    
-    setSelect(true);
+   
+
+     activeComponent(data);
 
   }
   return (
@@ -59,7 +58,7 @@ export const Typo: FC<Props> = ({ data }) => {
           ...sx,
           
         }}
-        className={`${style.draggable} ${select ? style.selected : ''} `}
+        className={`${style.draggable} ${select && style.selected} `}
         onClick={() => handleActiveClick(data)}
 
       >

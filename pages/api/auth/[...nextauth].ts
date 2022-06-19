@@ -21,6 +21,7 @@ export default NextAuth({
           username: credentials?.username ?? '',
           password: credentials?.password ?? '',
         });
+
         //SOmething was wrong
         if (user.error) {
           return null;
@@ -51,6 +52,7 @@ export default NextAuth({
     async jwt({ token, user, account }) {
       if (typeof user !== typeof undefined) {
         token.user = user;
+        console.log(user)
       }
       return Promise.resolve(token);
     },
@@ -58,10 +60,11 @@ export default NextAuth({
     async session({ session, token }) {
       const data = token.user as any;
       session.token = data.token as string;
+      console.log(token)
       if(data.user !== null){
-      
+     
         session.user = data.user as User;
-
+        
 
       }
      
