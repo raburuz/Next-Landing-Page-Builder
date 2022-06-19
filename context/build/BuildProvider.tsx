@@ -22,6 +22,14 @@ export const BuildProvider: FC<Props> = ({ children }) => {
       components,
     });
   };
+
+  const pageBackgroundImage = (url: string) => {
+    dispatch({
+      type: 'Build - Change Background Page Image',
+      url,
+    });
+  };
+  
   const activeComponent = (activeComponent: object) => {
  
     dispatch({
@@ -73,7 +81,10 @@ export const BuildProvider: FC<Props> = ({ children }) => {
 
   return (
 
-    <BuildContext.Provider value={{ ...state, addComponent,changeColorPage,activeComponent,updateActiveComponent ,deletedComponent,addUrlImage,updateLabelText}}>
+    <BuildContext.Provider value={{ ...state, addComponent,changeColorPage,activeComponent,
+    updateActiveComponent ,deletedComponent,
+    addUrlImage,updateLabelText,
+    pageBackgroundImage}}>
 
 
       {children}

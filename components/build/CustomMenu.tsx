@@ -78,7 +78,10 @@ export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
   const [color, setColor] = useState("#121212");
   const [heigth, setHeigth] = useState(5);
-  const {active,addComponent,changeColorPage,activeComponent, updateActiveComponent,deletedComponent,addUrlImage ,updateLabelText}  =  useContext(BuildContext);
+  const {active,addComponent,changeColorPage
+    ,activeComponent, updateActiveComponent,
+    deletedComponent,addUrlImage ,
+    updateLabelText,pageBackgroundImage}  =  useContext(BuildContext);
 
   const [width, setWidth] = useState(5);
   const [colors, setColors] = useState("#121212");
@@ -92,6 +95,7 @@ export const CustomMenu = () => {
   const [label, setInputField] = useState('');
   const [openSuccess, setOpenSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRefImagePage = useRef<HTMLInputElement>(null);
   const [backgroundBorder, setbackgroundBorder] = useState("#121212");
 
   const theme = useTheme();
@@ -144,12 +148,21 @@ export const CustomMenu = () => {
     }
   }
 
+  const onFileInputChangeBackgroundPage = async({target}:any) => {
+    const response = await uploadImg(target.files[0]);
+    
+      const url = `url('${response.secure_url}')`
+      pageBackgroundImage(url);
+    
+  }
+  
+
   const handleChangeColor = (value:string ) => {
     setColor(value)
     changeColorPage(value);
   }
-
-
+  
+ 
   const handleChangeHeigth = (event:any ) => {
     setHeigth(event.target.value)
     if(active.type === ''){
@@ -343,7 +356,7 @@ export const CustomMenu = () => {
           ...state,    
           sx: {
             ...state.sx,
-            border: '1px solid'+value
+            border: '1px solid '+value
           }      
     }));
 
@@ -473,6 +486,11 @@ export const CustomMenu = () => {
         <CustomMenuLayout>
             <HexColorPicker className={style.reactColorful} color={backgroundBorder} onChange={handleBackgroundBorder} />
         </CustomMenuLayout>
+        <Box sx={{display:'flex',justifyContent:'space-evenly'}}>
+            <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() => fileInputRefImagePage.current?.click()} ><UploadFileIcon/></Box>
+            <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() =>   handleClickDelete(active.id)} hidden={(active.type === '') ? true : false }><DeleteForeverIcon/></Box>
+          </Box>
+          <input type="file" onChange={onFileInputChangeBackgroundPage}  ref={fileInputRefImagePage as React.LegacyRef<HTMLInputElement>} style={{display:'none'}}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Typography sx={{color:'white',margin:'20px 0px'}}>Change text:</Typography>

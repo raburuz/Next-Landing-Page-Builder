@@ -45,6 +45,15 @@ type Action =
       id:string;
       label: string;  
       }
+
+| {
+      type: 'Build - Change Background Page Image';
+      url:string;
+        
+      }
+      
+
+
     
   ;
 
@@ -105,6 +114,13 @@ export const BuildReducer = (state: any, action: Action) => {
               ...state,
               page: { backgroundColor: action.backgroundColor },
             };
+            case 'Build - Change Background Page Image':
+              return {
+                ...state,
+                page: { backgroundImage: action.url },
+              };
+
+            
         case 'Build - Add Url Image':
           return {
             ...state,
