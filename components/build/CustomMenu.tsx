@@ -93,6 +93,10 @@ export const CustomMenu = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [backgroundBorder, setbackgroundBorder] = useState("#121212");
+  const [left, setLeft] = useState(5);
+  const [right, setRight] = useState(5);
+  const [top, setTop] = useState(5);
+  const [bottom, setBottom] = useState(5);
 
   const theme = useTheme();
 
@@ -351,6 +355,74 @@ export const CustomMenu = () => {
     updateActiveComponent(activeModify);
   }
 
+  const handleChangePaddingLeft = (event:any ) => {
+    setLeft(event.target.value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+    setActiveComponent((state:any) => ({       
+          ...state,    
+          sx: {
+            ...state.sx,
+            paddingLeft: event.target.value
+          }      
+    }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
+  const handleChangePaddingRight = (event:any ) => {
+    setRight(event.target.value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+    setActiveComponent((state:any) => ({       
+          ...state,    
+          sx: {
+            ...state.sx,
+            paddingRight: event.target.value
+          }      
+    }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
+  const handleChangePaddingTop = (event:any ) => {
+    setTop(event.target.value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+    setActiveComponent((state:any) => ({       
+          ...state,    
+          sx: {
+            ...state.sx,
+            paddingTop: event.target.value
+          }      
+    }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
+  const handleChangePaddingBottom = (event:any ) => {
+    setBottom(event.target.value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+    setActiveComponent((state:any) => ({       
+          ...state,    
+          sx: {
+            ...state.sx,
+            paddingBottom: event.target.value
+          }      
+    }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
   function opened(){
    const button = document.getElementById('box');
    if (button != null) {
@@ -420,7 +492,7 @@ export const CustomMenu = () => {
      <TabPanel value={value} index={0}>
         <Typography sx={{color:'white'}}>Width:</Typography>
         <PrettoSlider
-            // valueLabelDisplay="auto"
+            valueLabelDisplay="auto"
             aria-label="pretto slider"
             value={width}
             onChange={handleChangeWidth}
@@ -428,7 +500,7 @@ export const CustomMenu = () => {
           />
         <Typography sx={{color:'white'}}>Heigth:</Typography>
         <PrettoSlider
-            // valueLabelDisplay="auto"
+            valueLabelDisplay="auto"
             aria-label="pretto slider"
             value={heigth}
             onChange={handleChangeHeigth}
@@ -447,6 +519,38 @@ export const CustomMenu = () => {
             aria-label="pretto slider"
             value={radius}
             onChange={handleChangeRadius}
+            max={100}
+          />
+          <Typography sx={{color:'white'}}>Padding left:</Typography>
+        <PrettoSlider
+            valueLabelDisplay="auto"
+            aria-label="pretto slider"
+            value={left}
+            onChange={handleChangePaddingLeft}
+            max={350}
+          />
+          <Typography sx={{color:'white'}}>Padding right:</Typography>
+        <PrettoSlider
+            valueLabelDisplay="auto"
+            aria-label="pretto slider"
+            value={right}
+            onChange={handleChangePaddingRight}
+            max={350}
+          />
+          <Typography sx={{color:'white'}}>Padding top:</Typography>
+        <PrettoSlider
+            valueLabelDisplay="auto"
+            aria-label="pretto slider"
+            value={top}
+            onChange={handleChangePaddingTop}
+            max={100}
+          />
+          <Typography sx={{color:'white'}}>Padding bottom:</Typography>
+        <PrettoSlider
+            valueLabelDisplay="auto"
+            aria-label="pretto slider"
+            value={bottom}
+            onChange={handleChangePaddingBottom}
             max={100}
           />
           <Box sx={{display:'flex',justifyContent:'space-evenly'}}>
