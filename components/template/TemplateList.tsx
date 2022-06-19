@@ -20,11 +20,7 @@ export const TemplateList = () => {
                 <div className={style.textInfoMenu}>These are the last pages created by our users.</div>
             </div>
             <div className={style.templatesMenu}>
-              {
-                isLoggedIn &&
                 <div className={style.templateMenu}><Image alt="logo" src={template1} /></div>
-                
-              }
                 <div className={style.templateMenu}><Image alt="logo" src={template2} /></div>
                 <div className={style.templateMenu}><Image alt="logo" src={template3} /></div>
             </div>
