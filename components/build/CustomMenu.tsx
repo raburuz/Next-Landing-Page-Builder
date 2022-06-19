@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SyntheticEvent, useContext, useEffect, useRef, useState } from 'react';
-import { Tab, Tabs, Box, Typography, Snackbar, Alert, TextField, AppBar } from '@mui/material';
+import { Tab, Tabs, Box, Typography, Snackbar, Alert, TextField, AppBar, Autocomplete } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import FormatColorTextIcon from '@mui/icons-material/FormatColorText';
@@ -73,6 +73,19 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
+const options = [{
+  label:'Raleway'
+},
+{label:'Lora'},
+{label:'Mukta'},
+{label:'Oswald'},
+{label:'Nunito'},
+{label:'Roboto'},
+{label:'Oswald'},
+{label:'Rubik'},
+{label:'League Gothic'},
+{label:'Kdam Thmor Pro'},
+{label:'Comic Neue'},]
 
 export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
@@ -139,7 +152,25 @@ export const CustomMenu = () => {
       updateLabelText(label , active.id);
     }
   }
-  
+  const handleFontFamilyChange = (e:any) => {
+      console.log(e.target.textContent)
+      if(active.type === ''){
+        setOpenErrorLabel(true);
+        return;
+      }else{
+              setActiveComponent((state:any) => ({
+                              
+                ...state,    
+                sx: {
+                  ...state.sx,
+                  fontFamily:e.target.textContent
+                }      
+            
+          }));
+          updateActiveComponent(activeModify);
+      }
+
+  }
 
   const onFileInputChange = async({target}:any) => {
     const response = await uploadImg(target.files[0]);
@@ -521,6 +552,8 @@ export const CustomMenu = () => {
             onChange={handleChangeRadius}
             max={100}
           />
+          <Box sx={{padding:'50px'}}>
+            <h1 style={{textAlign:'center',}}>Paddings</h1>
           <Typography sx={{color:'white'}}>Padding left:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
@@ -553,6 +586,7 @@ export const CustomMenu = () => {
             onChange={handleChangePaddingBottom}
             max={100}
           />
+          </Box>
           <Box sx={{display:'flex',justifyContent:'space-evenly'}}>
             <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() => fileInputRef.current?.click()}  hidden={(active.type === 'image') ? false : true }><UploadFileIcon/></Box>
             <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() =>   handleClickDelete(active.id)} hidden={(active.type === '') ? true : false }><DeleteForeverIcon/></Box>
@@ -588,6 +622,15 @@ export const CustomMenu = () => {
               variant="filled"
               onChange={handleModifyLabel}
             />
+<Typography sx={{color:'white',margin:'20px 0px'}}>Change font family:</Typography>
+<Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={options}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="FontFamily" />}
+      onChange={handleFontFamilyChange}
+    />
         <Typography sx={{color:'white',margin:'20px 0px'}}>Align items:</Typography>
           <ToggleButtonGroup
             value={alignment}
