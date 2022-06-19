@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SyntheticEvent, useContext, useEffect, useRef, useState } from 'react';
-import { Tab, Tabs, Box, Typography, Snackbar, Alert, TextField, AppBar } from '@mui/material';
+import { Tab, Tabs, Box, Typography, Snackbar, Alert, TextField, AppBar, Autocomplete } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import FormatColorTextIcon from '@mui/icons-material/FormatColorText';
@@ -32,6 +32,7 @@ import Button from '@mui/material/Button';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import 'animate.css';
+import { ShadowPicker } from 'react-shadow-picker';
 
 const PrettoSlider = styled(Slider)({
   color: 'linear-gradient(30deg, rgba(121,82,119,0.975) 30%, #355192 85%)',
@@ -73,6 +74,19 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
+const options = [{
+  label:'Raleway'
+},
+{label:'Lora'},
+{label:'Mukta'},
+{label:'Oswald'},
+{label:'Nunito'},
+{label:'Roboto'},
+{label:'Oswald'},
+{label:'Rubik'},
+{label:'League Gothic'},
+{label:'Kdam Thmor Pro'},
+{label:'Comic Neue'},]
 
 export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
@@ -97,7 +111,7 @@ export const CustomMenu = () => {
   const [right, setRight] = useState(5);
   const [top, setTop] = useState(5);
   const [bottom, setBottom] = useState(5);
-
+  const [shadow, setShadow] = useState("0px 0px 10px 10px #44444455");
   const theme = useTheme();
 
   useEffect(() => {
@@ -139,7 +153,25 @@ export const CustomMenu = () => {
       updateLabelText(label , active.id);
     }
   }
-  
+  const handleFontFamilyChange = (e:any) => {
+      console.log(e.target.textContent)
+      if(active.type === ''){
+        setOpenErrorLabel(true);
+        return;
+      }else{
+              setActiveComponent((state:any) => ({
+                              
+                ...state,    
+                sx: {
+                  ...state.sx,
+                  fontFamily:e.target.textContent
+                }      
+            
+          }));
+          updateActiveComponent(activeModify);
+      }
+
+  }
 
   const onFileInputChange = async({target}:any) => {
     const response = await uploadImg(target.files[0]);
@@ -153,7 +185,25 @@ export const CustomMenu = () => {
     changeColorPage(value);
   }
 
+  const handleChangeBoxShadow = (value:any) => {
 
+    setShadow(value);
+    console.log(value)
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else{
+          setActiveComponent((state:any) => ({       
+                ...state,    
+                sx: {
+                  ...state.sx,
+                  boxShadow: value
+                }      
+          }));
+
+  }
+    updateActiveComponent(activeModify);
+  }
   const handleChangeHeigth = (event:any ) => {
     setHeigth(event.target.value)
     if(active.type === ''){
@@ -506,14 +556,14 @@ export const CustomMenu = () => {
             onChange={handleChangeHeigth}
             max={400}
           />         
-        <Typography sx={{color:'white'}}>Size:</Typography>
+        <Typography sx={{color:'white'}}>Font Size:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
             aria-label="pretto slider"
             value={size}
             onChange={handleChangeSize}
           />
-        <Typography sx={{color:'white'}}>Border:</Typography>
+        <Typography sx={{color:'white'}}>Border Radius:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
             aria-label="pretto slider"
@@ -521,6 +571,8 @@ export const CustomMenu = () => {
             onChange={handleChangeRadius}
             max={100}
           />
+          <Box sx={{padding:'50px'}}>
+            <h1 style={{textAlign:'center',}}>Paddings</h1>
           <Typography sx={{color:'white'}}>Padding left:</Typography>
         <PrettoSlider
             valueLabelDisplay="auto"
@@ -553,6 +605,7 @@ export const CustomMenu = () => {
             onChange={handleChangePaddingBottom}
             max={100}
           />
+          </Box>
           <Box sx={{display:'flex',justifyContent:'space-evenly'}}>
             <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() => fileInputRef.current?.click()}  hidden={(active.type === 'image') ? false : true }><UploadFileIcon/></Box>
             <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() =>   handleClickDelete(active.id)} hidden={(active.type === '') ? true : false }><DeleteForeverIcon/></Box>
@@ -561,6 +614,15 @@ export const CustomMenu = () => {
           
       </TabPanel>
       <TabPanel value={value} index={1} >
+      <Typography sx={{color:'white'}}>Box shadow :</Typography>
+        <Box sx={{marginBottom:'50px'}}>
+              <ShadowPicker
+              value={shadow}
+              onChange={(value) => {
+                handleChangeBoxShadow(value);
+              }}
+            />
+       </Box>
       <Typography sx={{color:'white'}}>Background color :</Typography>
         <CustomMenuLayout>
             <HexColorPicker className={style.reactColorful} color={color} onChange={handleChangeColor} />
@@ -577,6 +639,8 @@ export const CustomMenu = () => {
         <CustomMenuLayout>
             <HexColorPicker className={style.reactColorful} color={backgroundBorder} onChange={handleBackgroundBorder} />
         </CustomMenuLayout>
+
+        
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Typography sx={{color:'white',margin:'20px 0px'}}>Change text:</Typography>
@@ -588,6 +652,15 @@ export const CustomMenu = () => {
               variant="filled"
               onChange={handleModifyLabel}
             />
+<Typography sx={{color:'white',margin:'20px 0px'}}>Change font family:</Typography>
+<Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={options}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="FontFamily" />}
+      onChange={handleFontFamilyChange}
+    />
         <Typography sx={{color:'white',margin:'20px 0px'}}>Align items:</Typography>
           <ToggleButtonGroup
             value={alignment}

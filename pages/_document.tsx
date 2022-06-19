@@ -33,6 +33,9 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+
+          <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300&family=Kdam+Thmor+Pro&family=League+Gothic&family=Lora&family=Montserrat:wght@100&family=Mukta:wght@200&family=Nunito:wght@200&family=Oswald:wght@200&family=Raleway:wght@100&family=Roboto:wght@100&family=Rubik:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet"/> 
         </Head>
         <body>
           <Main />
