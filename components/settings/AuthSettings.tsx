@@ -52,7 +52,7 @@ interface InputComponent {
 
 
 
-  
+  console.log(userData);
   const onFileInputChange = ({target}:any) => {
   
    
@@ -226,18 +226,15 @@ interface InputComponent {
                           );
                       })}
               <Box sx={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',
-                    width:'80px',
-                    height:'40px',
-                    textAlign:'center',
-                    cursor:'pointer',
-                    display:'flex',
-                    justifyContent:'center',alignItems:'center',marginBottom:'20px'}} onClick={() => fileInputRef.current?.click()} ><UploadFileIcon/>
-                    </Box>
-            </Box>
-            <input type="file" onChange={onFileInputChange}  ref={fileInputRef as React.LegacyRef<HTMLInputElement>} style={{display:'none'}}/>
+              {/* <Box sx={{display:'flex',justifyContent:'space-evenly'}}>
+            <Box sx={{color:'white',backgroundColor:'#355192',borderRadius:'15px',width:'50px',textAlign:'center',cursor:'pointer'}} onClick={() => fileInputRef.current?.click()} ><UploadFileIcon/></Box>
+          </Box>
+          <input type="file" onChange={onFileInputChange}  ref={fileInputRef as React.LegacyRef<HTMLInputElement>} style={{display:'none'}}/> */}
+                </Box>
+            
                     <Button onClick={handleOpen} variant="text" sx={{background:'purple',color:'white'}}>Confirm</Button>
                 </div>
+              
       <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"

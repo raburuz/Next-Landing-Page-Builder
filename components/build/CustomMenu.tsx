@@ -73,7 +73,15 @@ const PrettoSlider = styled(Slider)({
     },
   },
 });
-
+const optionsItems = [{
+  label:'item-1'
+},
+{
+  label:'item-2'
+ },
+{
+  label:'item-3'
+    },]
 const options = [{
   label:'Raleway'
 },
@@ -92,7 +100,7 @@ export const CustomMenu = () => {
   const [value, setValue] = useState<number>(0);
   const [color, setColor] = useState("#121212");
   const [heigth, setHeigth] = useState(5);
-  const {active,addComponent,changeColorPage,activeComponent, updateActiveComponent,deletedComponent,addUrlImage ,updateLabelText}  =  useContext(BuildContext);
+  const {active,addComponent,changeColorPage,activeComponent, updateActiveComponent,deletedComponent,addUrlImage ,updateLabelText,updateActiveItemList}  =  useContext(BuildContext);
 
   const [width, setWidth] = useState(5);
   const [colors, setColors] = useState("#121212");
@@ -103,7 +111,11 @@ export const CustomMenu = () => {
 
   const [open, setOpen] = useState(false);
   const [labelOpen, setOpenErrorLabel] = useState(false);
+  const [itemOpen, setOpenErrorItem] = useState(false);
+  const [itemChangeOpen, setOpenErrorChangeItem] = useState(false);
   const [label, setInputField] = useState('');
+  const [labelItem, setInputFieldItem] = useState('');
+  const [itemOption, setItem] = useState('');
   const [openSuccess, setOpenSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [backgroundBorder, setbackgroundBorder] = useState("#121212");
@@ -113,6 +125,8 @@ export const CustomMenu = () => {
   const [bottom, setBottom] = useState(5);
   const [shadow, setShadow] = useState("0px 0px 10px 10px #44444455");
   const theme = useTheme();
+  console.log(active)
+
 
   useEffect(() => {
     setActiveComponent(active)
@@ -122,9 +136,15 @@ export const CustomMenu = () => {
 
   useEffect(() => {
     updateActiveComponent(activeModify)
+    
   }, [activeModify])
-
-
+  useEffect(() => {
+    updateActiveItemList(activeModify)
+  }, [activeModify])
+  useEffect(() => {
+    setInputFieldItem(labelItem)
+  }, [labelItem])
+  
   
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -133,6 +153,8 @@ export const CustomMenu = () => {
     setOpenSuccess(false);
     setOpen(false);
     setOpenErrorLabel(false);
+    setOpenErrorItem(false);
+    setOpenErrorChangeItem(false);
   };
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -143,7 +165,75 @@ export const CustomMenu = () => {
   }
 
 
+  const handleItemChange = (e:any) => {
+
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else if (active.type === 'list'){
+     setItem(e.target.textContent)
+
+    }else{
+
+
+
+    }
+    
+  }
+
+
+  const handleModifyItemValue= (event:any ) => {
+    if(active.type === ''){
+      setOpenErrorLabel(true);
+      return;
+    }else if(active.type === 'list'){
+
+      if(itemOption != ''){
+        setInputFieldItem(event.target.value)
+        // updateActiveItemList(itemOption,active.id,labelItem);
+        let indexItem = 0;
+        if(itemOption === 'item-1'){
+          indexItem = 0;
+        }else if(itemOption === 'item-2'){
   
+          indexItem = 1;
+        }else{
+          indexItem = 2;
+        }
+        setActiveComponent((state:any) => ({
+                                
+          ...state,    
+          items: state.items.map((i:string,index:any) => {
+            
+            if(index === indexItem ){
+              return labelItem;
+            }
+            return i;
+          })  
+      
+    }));
+    console.log(JSON.stringify(activeModify) + 'este es el active modify')
+    updateActiveItemList(activeModify);
+  
+
+
+      }else{
+        setOpenErrorChangeItem(true)
+
+        return;
+      }
+    
+
+
+
+    }else{
+
+      setOpenErrorItem(true);
+      return;
+    }
+  }
+
+
   const handleModifyLabel = (event:any ) => {
     if(active.type === ''){
       setOpenErrorLabel(true);
@@ -154,7 +244,7 @@ export const CustomMenu = () => {
     }
   }
   const handleFontFamilyChange = (e:any) => {
-      console.log(e.target.textContent)
+   
       if(active.type === ''){
         setOpenErrorLabel(true);
         return;
@@ -643,7 +733,7 @@ export const CustomMenu = () => {
         
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <Typography sx={{color:'white',margin:'20px 0px'}}>Change text:</Typography>
+      <Typography sx={{color:'white',margin:'20px 0px'}}>Change text :</Typography>
           <TextField
               id="filled-textarea"
               label="Change Label"
@@ -651,7 +741,12 @@ export const CustomMenu = () => {
               multiline
               variant="filled"
               onChange={handleModifyLabel}
+              value={label}
             />
+
+
+
+
 <Typography sx={{color:'white',margin:'20px 0px'}}>Change font family:</Typography>
 <Autocomplete
       disablePortal
@@ -660,7 +755,27 @@ export const CustomMenu = () => {
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="FontFamily" />}
       onChange={handleFontFamilyChange}
+     
     />
+    <Typography sx={{color:'white',margin:'20px 0px'}}>Select Item Change:</Typography>
+<Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={optionsItems}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Select Item Change" />}
+      onChange={handleItemChange}
+    />
+<Typography sx={{color:'white',margin:'20px 0px'}}>Change text item :</Typography>
+          <TextField
+              id="filled-textarea"
+              label="Change Label"
+              placeholder="Label"
+              multiline
+              variant="filled"
+              onChange={handleModifyItemValue}
+              value={labelItem}
+            />
         <Typography sx={{color:'white',margin:'20px 0px'}}>Align items:</Typography>
           <ToggleButtonGroup
             value={alignment}
@@ -698,6 +813,16 @@ export const CustomMenu = () => {
     <Snackbar open={labelOpen} autoHideDuration={4000} onClose={handleClose}>
                   <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                   You have to select a component to modify it
+                  </Alert>
+     </Snackbar>
+     <Snackbar open={itemChangeOpen} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                  You have to select an item to be able to change it
+                  </Alert>
+     </Snackbar>
+     <Snackbar open={itemOpen} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                  The selected component must be of type list
                   </Alert>
      </Snackbar>
     <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
