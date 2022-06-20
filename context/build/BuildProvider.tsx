@@ -1,6 +1,6 @@
 import { FC, useReducer } from 'react';
 import { Components } from '@mui/material';
-import { TypoComponent, Website } from '../../interfaces';
+import { ListComponent, TypoComponent, Website } from '../../interfaces';
 import { BuildContext } from './BuildContext';
 import { BuildReducer } from './BuildReducer';
 import { initialValue } from './initialValue';
@@ -43,6 +43,15 @@ export const BuildProvider: FC<Props> = ({ children }) => {
   };
 
   
+
+  const updateActiveItemList = (components: ListComponent) => {
+    dispatch({
+      type: 'Build - Update Active Item List',
+      components
+    });
+  };
+
+
   const updateLabelText = (label: string,id:string) => {
     dispatch({
       type: 'Build - Update Label Text',
@@ -73,7 +82,9 @@ export const BuildProvider: FC<Props> = ({ children }) => {
 
   return (
 
-    <BuildContext.Provider value={{ ...state, addComponent,changeColorPage,activeComponent,updateActiveComponent ,deletedComponent,addUrlImage,updateLabelText}}>
+    <BuildContext.Provider value={{ ...state, addComponent,changeColorPage,activeComponent,
+    updateActiveComponent ,deletedComponent,
+    addUrlImage,updateLabelText,updateActiveItemList}}>
 
 
       {children}

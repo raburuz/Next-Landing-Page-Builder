@@ -1,7 +1,7 @@
 import { Components } from '@mui/material';
 
 
-import {Component, TypoComponent} from '../../interfaces'
+import {Component, ListComponent, TypoComponent} from '../../interfaces'
 
 
 
@@ -45,7 +45,11 @@ type Action =
       id:string;
       label: string;  
       }
-    
+| {
+        type: 'Build - Update Active Item List';
+        components: ListComponent; 
+        }
+      
   ;
 
 export const BuildReducer = (state: any, action: Action) => {
@@ -88,7 +92,7 @@ export const BuildReducer = (state: any, action: Action) => {
           };
 
           
-          case 'Build - Update Label Text':
+        case 'Build - Update Label Text':
             return {
               ...state,
               components: state.components.map(
@@ -100,7 +104,21 @@ export const BuildReducer = (state: any, action: Action) => {
                   }
               )
                 };
-          case 'Build - Change Color Page':
+
+
+         case 'Build - Update Active Item List':
+                  return {
+                    ...state,
+                    components: state.components.map(
+                        (c:any) =>{
+                          if(c.id === action.components.id ){
+                            return {...c,items:action.components.items}
+                          }
+                          return c;
+                        }
+                    )
+                      };
+        case 'Build - Change Color Page':
             return {
               ...state,
               page: { backgroundColor: action.backgroundColor },
